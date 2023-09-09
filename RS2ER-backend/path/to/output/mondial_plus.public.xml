@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="mondial_plus" schema="public" type="PostgreSQL - 13.3">
+   <tables>
+      <table name="airport" numRows="1304" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="iata_code" nullable="false" remarks="" size="3" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="true" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="country" nullable="true" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="city" nullable="true" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="province" nullable="true" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="island" nullable="true" remarks="" size="50" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="airport_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="6" name="latitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="7" name="longitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="elevation" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="gmt_offset" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="iata_code" sequenceNumberInPK="1"/>
+         <index name="airport_pk" unique="true">
+            <column ascending="true" name="iata_code"/>
+         </index>
+         <checkConstraint constraint="(((latitude &gt;= ('-90'::integer)::numeric) AND (latitude &lt;= (90)::numeric)))" name="airport_latitude_range"/>
+         <checkConstraint constraint="(((longitude &gt;= ('-180'::integer)::numeric) AND (longitude &lt;= (180)::numeric)))" name="airport_longtitude_range"/>
+      </table>
+      <table name="borders" numRows="326" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country1" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="border_country_a_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country2" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="border_country_b_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="length" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <primaryKey column="country1" sequenceNumberInPK="1"/>
+         <primaryKey column="country2" sequenceNumberInPK="2"/>
+         <index name="border_pk" unique="true">
+            <column ascending="true" name="country1"/>
+            <column ascending="true" name="country2"/>
+         </index>
+         <checkConstraint constraint="((length &gt; (0)::numeric))" name="border_length"/>
+      </table>
+      <table name="city" numRows="3423" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <child column="city" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="airport"/>
+            <child column="city" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city_other_name"/>
+            <child column="city" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city_population"/>
+            <child column="capital" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+            <child column="city" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_by"/>
+            <child column="city" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_on"/>
+            <child column="city" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="organization"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <child column="country" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="airport"/>
+            <child column="country" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city_other_name"/>
+            <child column="country" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city_population"/>
+            <child column="code" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+            <child column="country" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_by"/>
+            <child column="country" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_on"/>
+            <child column="country" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="organization"/>
+            <parent column="country" foreignKey="city_province_we" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <child column="province" foreignKey="airport_city_fk" implied="false" onDeleteCascade="false" schema="public" table="airport"/>
+            <child column="province" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city_other_name"/>
+            <child column="province" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city_population"/>
+            <child column="province" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+            <child column="province" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_by"/>
+            <child column="province" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="located_on"/>
+            <child column="province" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="organization"/>
+            <parent column="name" foreignKey="city_province_we" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="population" nullable="true" remarks="" size="0" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="latitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="5" name="longitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="elevation" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="local_name" nullable="true" remarks="" size="120" type="varchar" typeCode="12"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="country" sequenceNumberInPK="3"/>
+         <index name="city_pk" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="(((latitude &gt;= ('-90'::integer)::numeric) AND (latitude &lt;= (90)::numeric)))" name="city_latitude_range"/>
+         <checkConstraint constraint="(((longitude &gt;= ('-180'::integer)::numeric) AND (longitude &lt;= (180)::numeric)))" name="city_longtitude_range"/>
+         <checkConstraint constraint="((population &gt;= (0)::numeric))" name="city_population_range"/>
+      </table>
+      <table name="city_other_name" numRows="556" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="city" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="city_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="other_name" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="city" sequenceNumberInPK="3"/>
+         <primaryKey column="other_name" sequenceNumberInPK="4"/>
+         <index name="city_other_name_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="city"/>
+            <column ascending="true" name="other_name"/>
+         </index>
+      </table>
+      <table name="city_population" numRows="12148" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="city" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="city_population_we" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="year" nullable="false" remarks="" size="0" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="population" nullable="false" remarks="" size="0" type="numeric" typeCode="2"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="city" sequenceNumberInPK="3"/>
+         <primaryKey column="year" sequenceNumberInPK="4"/>
+         <index name="city_population_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="city"/>
+            <column ascending="true" name="year"/>
+         </index>
+         <checkConstraint constraint="((population &gt;= (0)::numeric))" name="city_population_population_range"/>
+         <checkConstraint constraint="((year &gt;= (0)::numeric))" name="city_population_year_range"/>
+      </table>
+      <table name="continent" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="20" type="varchar" typeCode="12">
+            <child column="continent" foreignKey="encompasses_continent_fk" implied="false" onDeleteCascade="false" schema="public" table="encompasses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="1" name="area" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="continent_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="country" numRows="246" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="code" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <child column="country1" foreignKey="border_country_a_fk" implied="false" onDeleteCascade="false" schema="public" table="borders"/>
+            <child column="country2" foreignKey="border_country_b_fk" implied="false" onDeleteCascade="false" schema="public" table="borders"/>
+            <child column="country" foreignKey="country_development_of_country_fk" implied="false" onDeleteCascade="false" schema="public" table="country_development"/>
+            <child column="country" foreignKey="country_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="country_other_name"/>
+            <child column="country" foreignKey="economy_isa" implied="false" onDeleteCascade="false" schema="public" table="economy"/>
+            <child column="country" foreignKey="encompasses_country_fk" implied="false" onDeleteCascade="false" schema="public" table="encompasses"/>
+            <child column="country" foreignKey="ethnic_group_of_we" implied="false" onDeleteCascade="false" schema="public" table="ethnic_group"/>
+            <child column="country" foreignKey="is_member_country_fk" implied="false" onDeleteCascade="false" schema="public" table="is_member"/>
+            <child column="country" foreignKey="politics_isa" implied="false" onDeleteCascade="false" schema="public" table="politics"/>
+            <child column="country" foreignKey="population_isa" implied="false" onDeleteCascade="false" schema="public" table="population"/>
+            <child column="country" foreignKey="province_country_we" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+            <child column="country" foreignKey="religion_of_we" implied="false" onDeleteCascade="false" schema="public" table="religion"/>
+            <child column="country" foreignKey="spoken_of_we" implied="false" onDeleteCascade="false" schema="public" table="spoken"/>
+            <child column="code" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ws_country"/>
+            <parent column="country" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="capital" nullable="true" remarks="" size="35" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="province" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="country_capital_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="area" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="population" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="local_name" nullable="true" remarks="" size="120" type="varchar" typeCode="12"/>
+         <primaryKey column="code" sequenceNumberInPK="1"/>
+         <index name="country_pk" unique="true">
+            <column ascending="true" name="code"/>
+         </index>
+         <index name="country_name_ck" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="((area &gt;= (0)::numeric))" name="country_area_range"/>
+         <checkConstraint constraint="((population &gt;= 0))" name="country_population_range"/>
+      </table>
+      <table name="country_development" numRows="521" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="country_development_of_country_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="year" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="hdi_level" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="3" id="3" name="hdi" nullable="false" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="1" id="4" name="life_expectancy" nullable="false" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="1" id="5" name="years_of_schooling" nullable="false" remarks="" size="3" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="gni_per_capita" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="year" sequenceNumberInPK="2"/>
+         <index name="country_hdi_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="year"/>
+         </index>
+         <checkConstraint constraint="(((hdi_level &gt;= 1) AND (hdi_level &lt;= 4)))" name="country_hdi_level"/>
+      </table>
+      <table name="country_other_name" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="country_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="other_name" nullable="false" remarks="" size="48" type="varchar" typeCode="12"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="other_name" sequenceNumberInPK="2"/>
+         <index name="country_other_name_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="other_name"/>
+         </index>
+      </table>
+      <table name="country_population" numRows="2278" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="year" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="population" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="year" sequenceNumberInPK="2"/>
+         <index name="country_population_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="year"/>
+         </index>
+         <checkConstraint constraint="((population &gt;= 0))" name="country_population_population"/>
+         <checkConstraint constraint="((year &gt;= 0))" name="country_population_year"/>
+      </table>
+      <table name="desert" numRows="63" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="25" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="desert_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="feature"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="1" name="area" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="desert_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="economy" numRows="234" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="economy_isa" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="gdp" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="agriculture" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="3" name="service" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="industry" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="5" name="inflation" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="6" name="unemployment" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <index name="economy_pk" unique="true">
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="((gdp &gt;= 0))" name="economy_gdp"/>
+      </table>
+      <table name="encompasses" numRows="251" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="encompasses_country_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="continent" nullable="false" remarks="" size="20" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="encompasses_continent_fk" implied="false" onDeleteCascade="false" schema="public" table="continent"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="percentage" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="continent" sequenceNumberInPK="2"/>
+         <index name="encompasses_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="continent"/>
+         </index>
+         <checkConstraint constraint="(((percentage &gt;= (0)::numeric) AND (percentage &lt;= (100)::numeric)))" name="encompasses_percentage_range"/>
+      </table>
+      <table name="ethnic_group" numRows="1472" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="ethnic_group_of_we" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="percentage" nullable="true" remarks="" size="0" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <index name="ethnic_group_pk" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="(((percentage &gt;= (0)::numeric) AND (percentage &lt;= (100)::numeric)))" name="ethnic_group_percent_range"/>
+      </table>
+      <table name="feature" numRows="1965" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <child column="name" foreignKey="desert_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="desert"/>
+            <child column="name" foreignKey="island_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+            <child column="name" foreignKey="mountain_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="mountain"/>
+            <child column="feature" foreignKey="province_has_feature_fk" implied="false" onDeleteCascade="false" schema="public" table="province_has_feature"/>
+            <child column="name" foreignKey="waterbody_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="1" id="1" name="latitude" nullable="true" remarks="" size="4" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="1" id="2" name="longitude" nullable="true" remarks="" size="4" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="feature_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="(((latitude &gt;= ('-90'::integer)::numeric) AND (latitude &lt;= (90)::numeric)))" name="feature_latitude"/>
+         <checkConstraint constraint="(((longitude &gt;= ('-180'::integer)::numeric) AND (longitude &lt;= (180)::numeric)))" name="feature_longtitude"/>
+      </table>
+      <table name="geo_estuary" numRows="749" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="river" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="geo_estuary_river_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="geo_estuary_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="geo_estuary_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <primaryKey column="province" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <primaryKey column="river" sequenceNumberInPK="3"/>
+         <index name="geo_estuary_pk" unique="true">
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="river"/>
+         </index>
+      </table>
+      <table name="geo_source" numRows="677" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="river" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="geo_source_river_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="geo_source_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="geo_source_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <primaryKey column="province" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <primaryKey column="river" sequenceNumberInPK="3"/>
+         <index name="geo_source_pk" unique="true">
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="river"/>
+         </index>
+      </table>
+      <table name="is_member" numRows="10087" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="is_member_country_fk" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="organization" nullable="false" remarks="" size="12" type="varchar" typeCode="12">
+            <parent column="abbreviation" foreignKey="is_member_organization_fk" implied="false" onDeleteCascade="false" schema="public" table="organization"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'member'::character varying" digits="0" id="2" name="type" nullable="false" remarks="" size="64" type="varchar" typeCode="12"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="organization" sequenceNumberInPK="2"/>
+         <index name="is_member_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="organization"/>
+         </index>
+      </table>
+      <table name="island" numRows="380" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <child column="island" foreignKey="airport_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="airport"/>
+            <child column="on_island" foreignKey="lake_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="lake"/>
+            <child column="island" foreignKey="located_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="located_on"/>
+            <child column="on_island" foreignKey="mountain_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="mountain"/>
+            <child column="on_island" foreignKey="river_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+            <parent column="name" foreignKey="island_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="feature"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="islands" nullable="true" remarks="" size="32" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="area" nullable="true" remarks="" size="10" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="elevation" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="type" nullable="true" remarks="" size="12" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="in_waterbody" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="island_in_waterbody" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="island_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="(((area &gt;= (0)::numeric) AND (area &lt;= (2175600)::numeric)))" name="island_area"/>
+      </table>
+      <table name="lake" numRows="223" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="lake_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="river" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="lake_river_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="elevation" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="depth" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="dam_height" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="type" nullable="true" remarks="" size="12" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="on_island" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="lake_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="river_through" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="lake_river_through_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="lake_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="((dam_height &gt;= 0))" name="lake_dam_height"/>
+         <checkConstraint constraint="((depth &gt;= 0))" name="lake_depth"/>
+      </table>
+      <table name="language" numRows="892" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12">
+            <child column="super_language" foreignKey="language_super_language_fk" implied="false" onDeleteCascade="false" schema="public" table="language"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="super_language" nullable="true" remarks="" size="50" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="language_super_language_fk" implied="false" onDeleteCascade="false" schema="public" table="language"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="language_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="located_by" numRows="1816" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="city" nullable="false" remarks="" size="35" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="located_by_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="waterbody" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="located_by_waterbody_fk" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <primaryKey column="city" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="country" sequenceNumberInPK="3"/>
+         <primaryKey column="waterbody" sequenceNumberInPK="4"/>
+         <index name="located_by_pk" unique="true">
+            <column ascending="true" name="city"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="waterbody"/>
+         </index>
+      </table>
+      <table name="located_on" numRows="513" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="city" nullable="false" remarks="" size="35" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="located_on_city_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="island" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="located_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+         </column>
+         <primaryKey column="city" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="country" sequenceNumberInPK="3"/>
+         <primaryKey column="island" sequenceNumberInPK="4"/>
+         <index name="located_on_pk" unique="true">
+            <column ascending="true" name="city"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="island"/>
+         </index>
+      </table>
+      <table name="merges_with" numRows="92" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="sea1" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="merges_with_sea_a_fk" implied="false" onDeleteCascade="false" schema="public" table="sea"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="sea2" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="merges_with_sea_b_fk" implied="false" onDeleteCascade="false" schema="public" table="sea"/>
+         </column>
+         <primaryKey column="sea1" sequenceNumberInPK="1"/>
+         <primaryKey column="sea2" sequenceNumberInPK="2"/>
+         <index name="merges_with_pk" unique="true">
+            <column ascending="true" name="sea1"/>
+            <column ascending="true" name="sea2"/>
+         </index>
+      </table>
+      <table name="mountain" numRows="587" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="mountain_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="feature"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="mountains" nullable="true" remarks="" size="50" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="mountain_in_mountain_range" implied="false" onDeleteCascade="false" schema="public" table="mountain_range"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="elevation" nullable="false" remarks="" size="10" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="type" nullable="true" remarks="" size="10" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="on_island" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="mountain_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="mountain_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="((elevation &gt;= (0)::numeric))" name="mountain_elevation_range"/>
+      </table>
+      <table name="mountain_range" numRows="195" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12">
+            <child column="mountains" foreignKey="mountain_in_mountain_range" implied="false" onDeleteCascade="false" schema="public" table="mountain"/>
+            <child column="mountains" foreignKey="river_sourced_from_mountain_range" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="mountain_range_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="organization" numRows="169" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="abbreviation" nullable="false" remarks="" size="12" type="varchar" typeCode="12">
+            <child column="organization" foreignKey="is_member_organization_fk" implied="false" onDeleteCascade="false" schema="public" table="is_member"/>
+            <child column="abbreviation" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ws_organization"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="city" nullable="true" remarks="" size="35" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="country" nullable="true" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="province" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="province" foreignKey="city_local_name_fk" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="established" nullable="true" remarks="" size="13" type="date" typeCode="91"/>
+         <primaryKey column="abbreviation" sequenceNumberInPK="1"/>
+         <index name="organization_pk" unique="true">
+            <column ascending="true" name="abbreviation"/>
+         </index>
+         <index name="organization_name_ck" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="politics" numRows="243" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <child column="dependent" foreignKey="dependent_country_fk" implied="false" onDeleteCascade="false" schema="public" table="politics"/>
+            <parent column="code" foreignKey="politics_isa" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="independence" nullable="true" remarks="" size="13" type="date" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="was_dependent" nullable="true" remarks="" size="32" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="dependent" nullable="true" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="dependent_country_fk" implied="false" onDeleteCascade="false" schema="public" table="politics"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="government" nullable="false" remarks="" size="120" type="varchar" typeCode="12"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <index name="politics_pk" unique="true">
+            <column ascending="true" name="country"/>
+         </index>
+      </table>
+      <table name="population" numRows="234" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="population_isa" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="1" name="population_growth" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="infant_mortality" nullable="true" remarks="" size="5" type="numeric" typeCode="2"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <index name="population_pk" unique="true">
+            <column ascending="true" name="country"/>
+         </index>
+      </table>
+      <table name="province" numRows="1651" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <child column="province" foreignKey="city_province_we" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+            <child column="province" foreignKey="geo_estuary_province_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_estuary"/>
+            <child column="province" foreignKey="geo_source_province_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_source"/>
+            <child column="province" foreignKey="province_has_feature_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province_has_feature"/>
+            <child column="province" foreignKey="province_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="province_other_name"/>
+            <child column="province" foreignKey="province_population_we" implied="false" onDeleteCascade="false" schema="public" table="province_population"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <child column="country" foreignKey="city_province_we" implied="false" onDeleteCascade="false" schema="public" table="city"/>
+            <child column="country" foreignKey="geo_estuary_province_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_estuary"/>
+            <child column="country" foreignKey="geo_source_province_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_source"/>
+            <child column="country" foreignKey="province_has_feature_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province_has_feature"/>
+            <child column="country" foreignKey="province_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="province_other_name"/>
+            <child column="country" foreignKey="province_population_we" implied="false" onDeleteCascade="false" schema="public" table="province_population"/>
+            <parent column="code" foreignKey="province_country_we" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="population" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="area" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="capital" nullable="true" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="capital_province" nullable="true" remarks="" size="48" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="local_name" nullable="true" remarks="" size="90" type="varchar" typeCode="12"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <index name="province_pk" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="((area &gt;= 0))" name="province_area_range"/>
+         <checkConstraint constraint="((population &gt;= 0))" name="province_population_range"/>
+      </table>
+      <table name="province_has_feature" numRows="4752" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="province_has_feature_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="province_has_feature_province_fk" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="feature" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="province_has_feature_fk" implied="false" onDeleteCascade="false" schema="public" table="feature"/>
+         </column>
+         <primaryKey column="province" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <primaryKey column="feature" sequenceNumberInPK="3"/>
+         <index name="province_has_feature_pk" unique="true">
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="feature"/>
+         </index>
+      </table>
+      <table name="province_other_name" numRows="91" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="province_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="province_other_name_mva" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="other_name" nullable="false" remarks="" size="48" type="varchar" typeCode="12"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="other_name" sequenceNumberInPK="3"/>
+         <index name="province_other_name_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="other_name"/>
+         </index>
+      </table>
+      <table name="province_population" numRows="5754" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="province" nullable="false" remarks="" size="48" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="province_population_we" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="country" foreignKey="province_population_we" implied="false" onDeleteCascade="false" schema="public" table="province"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="year" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="population" nullable="false" remarks="" size="0" type="numeric" typeCode="2"/>
+         <primaryKey column="country" sequenceNumberInPK="1"/>
+         <primaryKey column="province" sequenceNumberInPK="2"/>
+         <primaryKey column="year" sequenceNumberInPK="3"/>
+         <index name="province_population_pk" unique="true">
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="province"/>
+            <column ascending="true" name="year"/>
+         </index>
+         <checkConstraint constraint="((population &gt;= (0)::numeric))" name="province_population_population_range"/>
+         <checkConstraint constraint="((year &gt;= 0))" name="province_population_year_range"/>
+      </table>
+      <table name="religion" numRows="956" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="religion_of_we" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="percentage" nullable="false" remarks="" size="0" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <index name="religion_pk" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="(((percentage &gt;= (0)::numeric) AND (percentage &lt;= (100)::numeric)))" name="religion_percent_range"/>
+      </table>
+      <table name="river" numRows="656" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <child column="river" foreignKey="geo_estuary_river_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_estuary"/>
+            <child column="river" foreignKey="geo_source_river_fk" implied="false" onDeleteCascade="false" schema="public" table="geo_source"/>
+            <child column="river" foreignKey="lake_river_fk" implied="false" onDeleteCascade="false" schema="public" table="lake"/>
+            <child column="river_through" foreignKey="lake_river_through_fk" implied="false" onDeleteCascade="false" schema="public" table="lake"/>
+            <parent column="name" foreignKey="river_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="1" name="length" nullable="true" remarks="" size="10" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="mountains" nullable="true" remarks="" size="50" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="river_sourced_from_mountain_range" implied="false" onDeleteCascade="false" schema="public" table="mountain_range"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="source_elevation" nullable="true" remarks="" size="0" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="4" name="estuary_latitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="5" name="estuary_longitude" nullable="false" remarks="" size="5" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="estuary_elevation" nullable="true" remarks="" size="0" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="flows_into" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="river_flows_into_fk" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="on_island" nullable="true" remarks="" size="32" type="varchar" typeCode="12">
+            <parent column="name" foreignKey="river_on_island_fk" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="river_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="(((estuary_latitude &gt;= ('-90'::integer)::numeric) AND (estuary_latitude &lt;= (90)::numeric)))" name="estuary_latitude_range"/>
+         <checkConstraint constraint="(((estuary_longitude &gt;= ('-180'::integer)::numeric) AND (estuary_longitude &lt;= (180)::numeric)))" name="estuary_longtitude_range"/>
+         <checkConstraint constraint="((length &gt;= (0)::numeric))" name="river_length_range"/>
+      </table>
+      <table name="sea" numRows="56" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <child column="sea1" foreignKey="merges_with_sea_a_fk" implied="false" onDeleteCascade="false" schema="public" table="merges_with"/>
+            <child column="sea2" foreignKey="merges_with_sea_b_fk" implied="false" onDeleteCascade="false" schema="public" table="merges_with"/>
+            <parent column="name" foreignKey="sea_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="waterbody"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="depth" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="sea_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <checkConstraint constraint="((depth &gt;= 0))" name="sea_depth"/>
+      </table>
+      <table name="spoken" numRows="1416" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="false" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="spoken_of_we" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="1" id="2" name="percentage" nullable="true" remarks="" size="4" type="numeric" typeCode="2"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <primaryKey column="country" sequenceNumberInPK="2"/>
+         <index name="spoken_pk" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="country"/>
+         </index>
+         <checkConstraint constraint="(((percentage &gt;= (0)::numeric) AND (percentage &lt;= (100)::numeric)))" name="spoken_percent_range"/>
+      </table>
+      <table name="waterbody" numRows="935" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="false" remarks="" size="32" type="varchar" typeCode="12">
+            <child column="in_waterbody" foreignKey="island_in_waterbody" implied="false" onDeleteCascade="false" schema="public" table="island"/>
+            <child column="name" foreignKey="lake_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="lake"/>
+            <child column="waterbody" foreignKey="located_by_waterbody_fk" implied="false" onDeleteCascade="false" schema="public" table="located_by"/>
+            <child column="flows_into" foreignKey="river_flows_into_fk" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+            <child column="name" foreignKey="river_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="river"/>
+            <child column="name" foreignKey="sea_isa_waterbody" implied="false" onDeleteCascade="false" schema="public" table="sea"/>
+            <parent column="name" foreignKey="waterbody_isa_feature" implied="false" onDeleteCascade="false" schema="public" table="feature"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="area" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="waterbody_pk" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="ws_country" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT country.name,&#10;    country.code,&#10;    country.capital,&#10;    country.area,&#10;    country.population&#10;   FROM country&#10;  WHERE ((country.code)::text = ANY ((ARRAY['AUS'::character varying, 'NZ'::character varying, 'USA'::character varying, 'N'::character varying, 'S'::character varying, 'IS'::character varying, 'DK'::character varying, 'SF'::character varying, 'DK'::character varying, 'FL'::character varying, 'CH'::character varying])::text[]));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name" nullable="true" remarks="" size="32" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="code" nullable="true" remarks="" size="4" type="varchar" typeCode="12">
+            <parent column="code" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="capital" nullable="true" remarks="" size="35" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="3" name="area" nullable="true" remarks="" size="10" type="numeric" typeCode="2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="population" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+      </table>
+      <table name="ws_encompasses" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT encompasses.country,&#10;    encompasses.continent,&#10;    encompasses.percentage&#10;   FROM encompasses&#10;  WHERE ((encompasses.country)::text IN ( SELECT ws_country.code&#10;           FROM ws_country));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="true" remarks="" size="4" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="continent" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="2" name="percentage" nullable="true" remarks="" size="10" type="numeric" typeCode="2"/>
+      </table>
+      <table name="ws_is_member" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT is_member.country,&#10;    is_member.organization&#10;   FROM is_member&#10;  WHERE (((is_member.country)::text IN ( SELECT ws_country.code&#10;           FROM ws_country)) AND ((is_member.organization)::text IN ( SELECT ws_organization.abbreviation&#10;           FROM ws_organization)));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="country" nullable="true" remarks="" size="4" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="organization" nullable="true" remarks="" size="12" type="varchar" typeCode="12"/>
+      </table>
+      <table name="ws_organization" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT organization.abbreviation,&#10;    organization.city,&#10;    organization.established&#10;   FROM organization&#10;  WHERE ((organization.abbreviation)::text = ANY ((ARRAY['EFTA'::character varying, 'NC'::character varying, 'ANZUS'::character varying, 'NATO'::character varying])::text[]));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="abbreviation" nullable="true" remarks="" size="12" type="varchar" typeCode="12">
+            <parent column="abbreviation" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="organization"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="city" nullable="true" remarks="" size="35" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="established" nullable="true" remarks="" size="13" type="date" typeCode="91"/>
+      </table>
+   </tables>
+</database>

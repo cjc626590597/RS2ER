@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>mondial_plus.public</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+        <!-- Code Mirror -->
+        <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+        <!-- Fonts -->
+        <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+        <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+        <!-- Salvattore -->
+        <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+        <!-- SchemaSpy -->
+        <link rel="stylesheet" href="schemaSpy.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="bower/html5shiv/html5shiv.min.js"></script>
+        <script src="bower/respond/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="hold-transition skin-blue layout-top-nav">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="index.html" class="navbar-brand"><b>mondial_plus</b></a><span class="navbar-brand" style="padding-left: 0">.public</span>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+                                <li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+                                <li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+                                <li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+                                <li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>
+                                <li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+                                <li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </header>
+            <!-- Main content -->
+            <!-- Full Width Column -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>All Relationships</h1>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-code-fork"></i>
+                            <h3 class="box-title">Diagrams</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="nav-tabs-custom">
+                                <!-- Tabs within a box -->
+                                <h5>By default only columns that are primary keys, foreign keys or indexes are shown.</h5>
+                                <ul class="nav nav-tabs pull-left ui-sortable-handle">
+                                    <li class="active"><a href="#compactDegreeImg-chart" data-toggle="tab" aria-expanded="true">Compact</a></li>
+                                    <li class=""><a href="#largeDegreeImg-chart" data-toggle="tab" aria-expanded="true">Large</a></li>
+                                    <li class=""><a href="#compactimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Compact Implied</a></li>
+                                    <li class=""><a href="#largeimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Large Implied</a></li>
+                                </ul>
+                                <div class="tab-content no-padding">
+                                    <div class="chart tab-pane active" id="compactDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="compactRelationshipsDiagram" name="compactRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/population.html" target="_top" title="population" alt="" coords="963,936,1155,1053">
+<area shape="rect" id="node14" href="tables/country.html" target="_top" title="country" alt="" coords="719,973,873,1179">
+<area shape="rect" id="node2" href="tables/waterbody.html" target="_top" title="waterbody" alt="" coords="205,3068,359,3185">
+<area shape="rect" id="node33" href="tables/feature.html" target="_top" title="feature" alt="" coords="5,2757,151,2875">
+<area shape="rect" id="node3" href="tables/airport.html" target="_top" title="airport" alt="" coords="723,2140,869,2375">
+<area shape="rect" id="node13" href="tables/island.html" target="_top" title="island" alt="" coords="457,2833,609,2980">
+<area shape="rect" id="node28" href="tables/city.html" target="_top" title="city" alt="" coords="450,1743,615,1919">
+<area shape="rect" id="node4" href="tables/is_member.html" target="_top" title="is_member" alt="" coords="981,1587,1138,1733">
+<area shape="rect" id="node12" href="tables/organization.html" target="_top" title="organization" alt="" coords="712,1491,880,1725">
+<area shape="rect" id="node5" href="tables/mountain.html" target="_top" title="mountain" alt="" coords="724,2833,868,3009">
+<area shape="rect" id="node8" href="tables/mountain_range.html" target="_top" title="mountain_range" alt="" coords="434,2997,631,3091">
+<area shape="rect" id="node6" href="tables/province_other_name.html" target="_top" title="province_other_name" alt="" coords="413,1537,652,1689">
+<area shape="rect" id="node34" href="tables/province.html" target="_top" title="province" alt="" coords="195,1637,369,1784">
+<area shape="rect" id="node7" href="tables/geo_source.html" target="_top" title="geo_source" alt="" coords="978,2761,1141,2913">
+<area shape="rect" id="node9" href="tables/river.html" target="_top" title="river" alt="" coords="703,3027,889,3232">
+<area shape="rect" id="node10" href="tables/spoken.html" target="_top" title="spoken" alt="" coords="987,1071,1132,1217">
+<area shape="rect" id="node11" href="tables/merges_with.html" target="_top" title="merges_with" alt="" coords="711,3249,881,3372">
+<area shape="rect" id="node27" href="tables/sea.html" target="_top" title="sea" alt="" coords="464,3249,601,3367">
+<area shape="rect" id="node15" href="tables/located_by.html" target="_top" title="located_by" alt="" coords="718,1941,874,2123">
+<area shape="rect" id="node16" href="tables/continent.html" target="_top" title="continent" alt="" coords="724,2392,868,2509">
+<area shape="rect" id="node17" href="tables/city_other_name.html" target="_top" title="city_other_name" alt="" coords="696,1743,896,1924">
+<area shape="rect" id="node18" href="tables/province_population.html" target="_top" title="province_population" alt="" coords="417,1344,648,1520">
+<area shape="rect" id="node19" href="tables/province_has_feature.html" target="_top" title="province_has_feature" alt="" coords="413,1936,652,2088">
+<area shape="rect" id="node20" href="tables/located_on.html" target="_top" title="located_on" alt="" coords="717,2527,875,2708">
+<area shape="rect" id="node21" href="tables/language.html" target="_top" title="language" alt="" coords="973,29,1145,152">
+<area shape="rect" id="node22" href="tables/politics.html" target="_top" title="politics" alt="" coords="975,1259,1144,1405">
+<area shape="rect" id="node23" href="tables/desert.html" target="_top" title="desert" alt="" coords="219,2627,345,2744">
+<area shape="rect" id="node24" href="tables/borders.html" target="_top" title="borders" alt="" coords="993,1423,1126,1569">
+<area shape="rect" id="node25" href="tables/country_other_name.html" target="_top" title="country_other_name" alt="" coords="944,169,1175,292">
+<area shape="rect" id="node26" href="tables/lake.html" target="_top" title="lake" alt="" coords="983,2996,1136,3201">
+<area shape="rect" id="node29" href="tables/geo_estuary.html" target="_top" title="geo_estuary" alt="" coords="976,2592,1143,2744">
+<area shape="rect" id="node30" href="tables/religion.html" target="_top" title="religion" alt="" coords="992,309,1127,456">
+<area shape="rect" id="node31" href="tables/country_development.html" target="_top" title="country_development" alt="" coords="940,473,1179,620">
+<area shape="rect" id="node32" href="tables/city_population.html" target="_top" title="city_population" alt="" coords="701,1268,891,1473">
+<area shape="rect" id="node35" href="tables/encompasses.html" target="_top" title="encompasses" alt="" coords="970,2091,1149,2237">
+<area shape="rect" id="node36" href="tables/economy.html" target="_top" title="economy" alt="" coords="978,637,1141,755">
+<area shape="rect" id="node37" href="tables/ethnic_group.html" target="_top" title="ethnic_group" alt="" coords="972,772,1147,919">
+</map>
+                                        <a name='diagram'><img id="compactDegreeImg" src="diagrams/summary/relationships.real.compact.png" usemap="#compactRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="largeDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="largeRelationshipsDiagram" name="largeRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/population.html" target="_top" title="population" alt="" coords="963,1560,1155,1712">
+<area shape="rect" id="node14" href="tables/country.html" target="_top" title="country" alt="" coords="719,1075,873,1344">
+<area shape="rect" id="node2" href="tables/waterbody.html" target="_top" title="waterbody" alt="" coords="205,3273,359,3396">
+<area shape="rect" id="node33" href="tables/feature.html" target="_top" title="feature" alt="" coords="5,2945,151,3097">
+<area shape="rect" id="node3" href="tables/airport.html" target="_top" title="airport" alt="" coords="723,2221,869,2579">
+<area shape="rect" id="node13" href="tables/island.html" target="_top" title="island" alt="" coords="457,2945,609,3185">
+<area shape="rect" id="node28" href="tables/city.html" target="_top" title="city" alt="" coords="450,1625,615,1924">
+<area shape="rect" id="node4" href="tables/is_member.html" target="_top" title="is_member" alt="" coords="981,339,1138,491">
+<area shape="rect" id="node12" href="tables/organization.html" target="_top" title="organization" alt="" coords="712,817,880,1057">
+<area shape="rect" id="node5" href="tables/mountain.html" target="_top" title="mountain" alt="" coords="724,2801,868,3012">
+<area shape="rect" id="node8" href="tables/mountain_range.html" target="_top" title="mountain_range" alt="" coords="434,3203,631,3296">
+<area shape="rect" id="node6" href="tables/province_other_name.html" target="_top" title="province_other_name" alt="" coords="413,2499,652,2651">
+<area shape="rect" id="node34" href="tables/province.html" target="_top" title="province" alt="" coords="195,2387,369,2656">
+<area shape="rect" id="node7" href="tables/geo_source.html" target="_top" title="geo_source" alt="" coords="978,2633,1141,2785">
+<area shape="rect" id="node9" href="tables/river.html" target="_top" title="river" alt="" coords="703,3065,889,3393">
+<area shape="rect" id="node10" href="tables/spoken.html" target="_top" title="spoken" alt="" coords="987,1729,1132,1881">
+<area shape="rect" id="node11" href="tables/merges_with.html" target="_top" title="merges_with" alt="" coords="711,3447,881,3569">
+<area shape="rect" id="node27" href="tables/sea.html" target="_top" title="sea" alt="" coords="464,3447,601,3569">
+<area shape="rect" id="node15" href="tables/located_by.html" target="_top" title="located_by" alt="" coords="718,1824,874,2005">
+<area shape="rect" id="node16" href="tables/continent.html" target="_top" title="continent" alt="" coords="724,199,868,321">
+<area shape="rect" id="node17" href="tables/city_other_name.html" target="_top" title="city_other_name" alt="" coords="696,1625,896,1807">
+<area shape="rect" id="node18" href="tables/province_population.html" target="_top" title="province_population" alt="" coords="417,1127,648,1308">
+<area shape="rect" id="node19" href="tables/province_has_feature.html" target="_top" title="province_has_feature" alt="" coords="413,2704,652,2856">
+<area shape="rect" id="node20" href="tables/located_on.html" target="_top" title="located_on" alt="" coords="717,2023,875,2204">
+<area shape="rect" id="node21" href="tables/language.html" target="_top" title="language" alt="" coords="973,29,1145,152">
+<area shape="rect" id="node22" href="tables/politics.html" target="_top" title="politics" alt="" coords="975,1923,1144,2133">
+<area shape="rect" id="node23" href="tables/desert.html" target="_top" title="desert" alt="" coords="219,2945,345,3068">
+<area shape="rect" id="node24" href="tables/borders.html" target="_top" title="borders" alt="" coords="993,2151,1126,2303">
+<area shape="rect" id="node25" href="tables/country_other_name.html" target="_top" title="country_other_name" alt="" coords="944,508,1175,631">
+<area shape="rect" id="node26" href="tables/lake.html" target="_top" title="lake" alt="" coords="983,2949,1136,3248">
+<area shape="rect" id="node29" href="tables/geo_estuary.html" target="_top" title="geo_estuary" alt="" coords="976,2464,1143,2616">
+<area shape="rect" id="node30" href="tables/religion.html" target="_top" title="religion" alt="" coords="992,648,1127,800">
+<area shape="rect" id="node31" href="tables/country_development.html" target="_top" title="country_development" alt="" coords="940,817,1179,1087">
+<area shape="rect" id="node32" href="tables/city_population.html" target="_top" title="city_population" alt="" coords="701,1397,891,1608">
+<area shape="rect" id="node35" href="tables/encompasses.html" target="_top" title="encompasses" alt="" coords="970,169,1149,321">
+<area shape="rect" id="node36" href="tables/economy.html" target="_top" title="economy" alt="" coords="978,1104,1141,1373">
+<area shape="rect" id="node37" href="tables/ethnic_group.html" target="_top" title="ethnic_group" alt="" coords="972,1391,1147,1543">
+</map>
+                                        <a name='diagram'><img id="largeDegreeImg" src="diagrams/summary/relationships.real.large.png" usemap="#largeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="compactimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="compactImpliedRelationshipsDiagram" name="compactImpliedRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/population.html" target="_top" title="population" alt="" coords="963,1047,1155,1164">
+<area shape="rect" id="node14" href="tables/country.html" target="_top" title="country" alt="" coords="719,1084,873,1289">
+<area shape="rect" id="node2" href="tables/waterbody.html" target="_top" title="waterbody" alt="" coords="205,3179,359,3296">
+<area shape="rect" id="node33" href="tables/feature.html" target="_top" title="feature" alt="" coords="5,2868,151,2985">
+<area shape="rect" id="node3" href="tables/airport.html" target="_top" title="airport" alt="" coords="723,2251,869,2485">
+<area shape="rect" id="node13" href="tables/island.html" target="_top" title="island" alt="" coords="457,2944,609,3091">
+<area shape="rect" id="node28" href="tables/city.html" target="_top" title="city" alt="" coords="450,1853,615,2029">
+<area shape="rect" id="node4" href="tables/is_member.html" target="_top" title="is_member" alt="" coords="981,1697,1138,1844">
+<area shape="rect" id="node12" href="tables/organization.html" target="_top" title="organization" alt="" coords="712,1601,880,1836">
+<area shape="rect" id="node5" href="tables/mountain.html" target="_top" title="mountain" alt="" coords="724,2944,868,3120">
+<area shape="rect" id="node8" href="tables/mountain_range.html" target="_top" title="mountain_range" alt="" coords="434,3108,631,3201">
+<area shape="rect" id="node6" href="tables/province_other_name.html" target="_top" title="province_other_name" alt="" coords="413,1648,652,1800">
+<area shape="rect" id="node34" href="tables/province.html" target="_top" title="province" alt="" coords="195,1748,369,1895">
+<area shape="rect" id="node7" href="tables/geo_source.html" target="_top" title="geo_source" alt="" coords="978,2869,1141,3021">
+<area shape="rect" id="node9" href="tables/river.html" target="_top" title="river" alt="" coords="703,3137,889,3343">
+<area shape="rect" id="node10" href="tables/spoken.html" target="_top" title="spoken" alt="" coords="987,1181,1132,1328">
+<area shape="rect" id="node11" href="tables/merges_with.html" target="_top" title="merges_with" alt="" coords="711,3360,881,3483">
+<area shape="rect" id="node27" href="tables/sea.html" target="_top" title="sea" alt="" coords="464,3360,601,3477">
+<area shape="rect" id="node15" href="tables/located_by.html" target="_top" title="located_by" alt="" coords="718,2052,874,2233">
+<area shape="rect" id="node16" href="tables/continent.html" target="_top" title="continent" alt="" coords="724,2503,868,2620">
+<area shape="rect" id="node17" href="tables/city_other_name.html" target="_top" title="city_other_name" alt="" coords="696,1853,896,2035">
+<area shape="rect" id="node18" href="tables/province_population.html" target="_top" title="province_population" alt="" coords="417,1455,648,1631">
+<area shape="rect" id="node19" href="tables/province_has_feature.html" target="_top" title="province_has_feature" alt="" coords="413,2047,652,2199">
+<area shape="rect" id="node20" href="tables/located_on.html" target="_top" title="located_on" alt="" coords="717,2637,875,2819">
+<area shape="rect" id="node21" href="tables/language.html" target="_top" title="language" alt="" coords="973,29,1145,152">
+<area shape="rect" id="node22" href="tables/politics.html" target="_top" title="politics" alt="" coords="975,1369,1144,1516">
+<area shape="rect" id="node23" href="tables/desert.html" target="_top" title="desert" alt="" coords="219,2737,345,2855">
+<area shape="rect" id="node24" href="tables/borders.html" target="_top" title="borders" alt="" coords="993,1533,1126,1680">
+<area shape="rect" id="node25" href="tables/country_other_name.html" target="_top" title="country_other_name" alt="" coords="944,169,1175,292">
+<area shape="rect" id="node26" href="tables/lake.html" target="_top" title="lake" alt="" coords="983,3107,1136,3312">
+<area shape="rect" id="node29" href="tables/geo_estuary.html" target="_top" title="geo_estuary" alt="" coords="976,2700,1143,2852">
+<area shape="rect" id="node30" href="tables/religion.html" target="_top" title="religion" alt="" coords="992,309,1127,456">
+<area shape="rect" id="node31" href="tables/country_development.html" target="_top" title="country_development" alt="" coords="940,473,1179,620">
+<area shape="rect" id="node32" href="tables/city_population.html" target="_top" title="city_population" alt="" coords="701,1379,891,1584">
+<area shape="rect" id="node35" href="tables/encompasses.html" target="_top" title="encompasses" alt="" coords="970,1861,1149,2008">
+<area shape="rect" id="node36" href="tables/economy.html" target="_top" title="economy" alt="" coords="978,637,1141,755">
+<area shape="rect" id="node37" href="tables/ethnic_group.html" target="_top" title="ethnic_group" alt="" coords="972,772,1147,919">
+<area shape="rect" id="node38" href="tables/ws_country.html" target="_top" title="ws_country" alt="" coords="980,936,1139,1029">
+<area shape="rect" id="node39" href="tables/ws_organization.html" target="_top" title="ws_organization" alt="" coords="961,2025,1157,2119">
+</map>
+                                        <a name='diagram'><img id="compactimpliedDegreeImg" src="diagrams/summary/relationships.implied.compact.png" usemap="#compactImpliedRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="largeimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="largeImpliedRelationshipsDiagram" name="largeImpliedRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/population.html" target="_top" title="population" alt="" coords="963,2079,1155,2231">
+<area shape="rect" id="node14" href="tables/country.html" target="_top" title="country" alt="" coords="719,1069,873,1339">
+<area shape="rect" id="node2" href="tables/waterbody.html" target="_top" title="waterbody" alt="" coords="205,3268,359,3391">
+<area shape="rect" id="node33" href="tables/feature.html" target="_top" title="feature" alt="" coords="5,2940,151,3092">
+<area shape="rect" id="node3" href="tables/airport.html" target="_top" title="airport" alt="" coords="723,2216,869,2573">
+<area shape="rect" id="node13" href="tables/island.html" target="_top" title="island" alt="" coords="457,2940,609,3180">
+<area shape="rect" id="node28" href="tables/city.html" target="_top" title="city" alt="" coords="450,1620,615,1919">
+<area shape="rect" id="node4" href="tables/is_member.html" target="_top" title="is_member" alt="" coords="981,315,1138,467">
+<area shape="rect" id="node12" href="tables/organization.html" target="_top" title="organization" alt="" coords="712,496,880,736">
+<area shape="rect" id="node5" href="tables/mountain.html" target="_top" title="mountain" alt="" coords="724,2796,868,3007">
+<area shape="rect" id="node8" href="tables/mountain_range.html" target="_top" title="mountain_range" alt="" coords="434,3197,631,3291">
+<area shape="rect" id="node6" href="tables/province_other_name.html" target="_top" title="province_other_name" alt="" coords="413,2493,652,2645">
+<area shape="rect" id="node34" href="tables/province.html" target="_top" title="province" alt="" coords="195,2381,369,2651">
+<area shape="rect" id="node7" href="tables/geo_source.html" target="_top" title="geo_source" alt="" coords="978,2839,1141,2991">
+<area shape="rect" id="node9" href="tables/river.html" target="_top" title="river" alt="" coords="703,3060,889,3388">
+<area shape="rect" id="node10" href="tables/spoken.html" target="_top" title="spoken" alt="" coords="987,2248,1132,2400">
+<area shape="rect" id="node11" href="tables/merges_with.html" target="_top" title="merges_with" alt="" coords="711,3441,881,3564">
+<area shape="rect" id="node27" href="tables/sea.html" target="_top" title="sea" alt="" coords="464,3441,601,3564">
+<area shape="rect" id="node15" href="tables/located_by.html" target="_top" title="located_by" alt="" coords="718,1819,874,2000">
+<area shape="rect" id="node16" href="tables/continent.html" target="_top" title="continent" alt="" coords="724,753,868,876">
+<area shape="rect" id="node17" href="tables/city_other_name.html" target="_top" title="city_other_name" alt="" coords="696,1620,896,1801">
+<area shape="rect" id="node18" href="tables/province_population.html" target="_top" title="province_population" alt="" coords="417,1121,648,1303">
+<area shape="rect" id="node19" href="tables/province_has_feature.html" target="_top" title="province_has_feature" alt="" coords="413,2699,652,2851">
+<area shape="rect" id="node20" href="tables/located_on.html" target="_top" title="located_on" alt="" coords="717,2017,875,2199">
+<area shape="rect" id="node21" href="tables/language.html" target="_top" title="language" alt="" coords="973,29,1145,152">
+<area shape="rect" id="node22" href="tables/politics.html" target="_top" title="politics" alt="" coords="975,2441,1144,2652">
+<area shape="rect" id="node23" href="tables/desert.html" target="_top" title="desert" alt="" coords="219,2940,345,3063">
+<area shape="rect" id="node24" href="tables/borders.html" target="_top" title="borders" alt="" coords="993,653,1126,805">
+<area shape="rect" id="node25" href="tables/country_other_name.html" target="_top" title="country_other_name" alt="" coords="944,823,1175,945">
+<area shape="rect" id="node26" href="tables/lake.html" target="_top" title="lake" alt="" coords="983,3023,1136,3321">
+<area shape="rect" id="node29" href="tables/geo_estuary.html" target="_top" title="geo_estuary" alt="" coords="976,2669,1143,2821">
+<area shape="rect" id="node30" href="tables/religion.html" target="_top" title="religion" alt="" coords="992,963,1127,1115">
+<area shape="rect" id="node31" href="tables/country_development.html" target="_top" title="country_development" alt="" coords="940,1132,1179,1401">
+<area shape="rect" id="node32" href="tables/city_population.html" target="_top" title="city_population" alt="" coords="701,1392,891,1603">
+<area shape="rect" id="node35" href="tables/encompasses.html" target="_top" title="encompasses" alt="" coords="970,484,1149,636">
+<area shape="rect" id="node36" href="tables/economy.html" target="_top" title="economy" alt="" coords="978,1419,1141,1688">
+<area shape="rect" id="node37" href="tables/ethnic_group.html" target="_top" title="ethnic_group" alt="" coords="972,1705,1147,1857">
+<area shape="rect" id="node38" href="tables/ws_country.html" target="_top" title="ws_country" alt="" coords="980,1875,1139,2061">
+<area shape="rect" id="node39" href="tables/ws_organization.html" target="_top" title="ws_organization" alt="" coords="961,169,1157,297">
+</map>
+                                        <a name='diagram'><img id="largeimpliedDegreeImg" src="diagrams/summary/relationships.implied.large.png" usemap="#largeImpliedRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div>
+                    <div class="pull-right hidden-xs">
+                        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+                        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+                    </div>
+                    <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.2.2</a></strong>
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- jQuery 2.2.3 -->
+        <script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.5 -->
+        <script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+        <script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+        <script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+        <script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+        <!-- SheetJS -->
+        <script src="bower/js-xlsx/xlsx.full.min.js"></script>
+        <!-- pdfmake -->
+        <script src="bower/pdfmake/pdfmake.min.js"></script>
+        <script src="bower/pdfmake/vfs_fonts.js"></script>
+        <!-- SlimScroll -->
+        <script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+        <!-- Salvattore -->
+        <script src="bower/salvattore/salvattore.min.js"></script>
+        <!-- AnchorJS -->
+        <script src="bower/anchor-js/anchor.min.js"></script>
+        <!-- CodeMirror -->
+        <script src="bower/codemirror/codemirror.js"></script>
+        <script src="bower/codemirror/sql.js"></script>
+        <!-- AdminLTE App -->
+        <script src="bower/admin-lte/dist/js/app.min.js"></script>
+        <script src="relationships.js"></script>
+        <script src="schemaSpy.js"></script>
+    </body>
+</html>
