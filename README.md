@@ -5,7 +5,7 @@
 
 This project is to develop a full-stack web application that has implemented front-end and back-end separation technologies. In terms of language and framework choices, our project seamlessly combines the robust back-end capabilities of Spring Boot with the dynamic front-end framework of Vue.js. This fusion results in a resilient and effective platform that caters to a broad spectrum of web development requirements.
 
- <img src="https://github.com/cjc626590597/RS2ER/assets/65157325/aa70037f-1049-4f6e-8f3d-b877e1e7eba4" alt="image-20230911074452439" style="zoom:50%;" />
+ <img src="https://github.com/cjc626590597/RS2ER/assets/65157325/aa70037f-1049-4f6e-8f3d-b877e1e7eba4" width="210px" />
 
 
 ## Core functionality
