@@ -2,3 +2,4 @@ test
 test main
 add branch
 test pull
+test pull branch
